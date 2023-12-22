@@ -5,17 +5,27 @@ namespace TechcareerWebApiTutorial.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountryController : ControllerBase
+    public class CountriesController : ControllerBase
     {
+        private static string[] AllCountries = {
+        "Turkey", "USA", "Germany", "France", "UK",
+        "Italy", "Japan", "China", "Russia", "India",
+        "Brazil", "Canada", "Australia", "South Korea", "Mexico",
+        "South Africa", "Saudi Arabia", "Spain", "Argentina", "Nigeria"
+    };
+
         [HttpGet]
-        public ActionResult<IEnumerable<string>> GetCountries()
+        public IActionResult GetAllCountries()
         {
-            List<string> countries = new List<string>
-            {
-                "Turkey", "United States", "China", "India", "Russia", "Germany", "France", "United Kingdom", "Japan", "Brazil", "Canada", "Italy",
-                "South Korea", "Mexico", "South Africa", "Australia", "Saudi Arabia", "Iran", "Argentina", "Spain"
-            };
-            return Ok(countries);
+            return Ok(AllCountries);
+        }
+
+        [HttpGet("{count}")]
+        public IActionResult GetCountCountries(int count)
+        {
+            string[] selectedCountries = AllCountries.TakeLast(count).ToArray();
+            return Ok(selectedCountries);
         }
     }
+
 }
