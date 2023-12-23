@@ -23,7 +23,8 @@ namespace TechcareerWebApiTutorial.Controllers
             Category = new Category { CategoryID = 2, CategoryName = "Clothing" } }
     };
 
-        
+
+
         // Tüm ürünleri getiren endpoint
         [HttpGet]
         public IActionResult GetAll()
