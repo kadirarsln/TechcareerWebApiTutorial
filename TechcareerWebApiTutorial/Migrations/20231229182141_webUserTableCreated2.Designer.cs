@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechcareerWebApiTutorial.Models.ORM;
 
@@ -11,9 +12,10 @@ using TechcareerWebApiTutorial.Models.ORM;
 namespace TechcareerWebApiTutorial.Migrations
 {
     [DbContext(typeof(TechCareerDbContext))]
-    partial class TechCareerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231229182141_webUserTableCreated2")]
+    partial class webUserTableCreated2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +23,6 @@ namespace TechcareerWebApiTutorial.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("OrderWebUser", b =>
-                {
-                    b.Property<int>("OrdersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WebUsersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrdersId", "WebUsersId");
-
-                    b.HasIndex("WebUsersId");
-
-                    b.ToTable("OrderWebUser");
-                });
 
             modelBuilder.Entity("TechcareerWebApiTutorial.Models.ORM.Author", b =>
                 {
@@ -126,31 +113,6 @@ namespace TechcareerWebApiTutorial.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("TechcareerWebApiTutorial.Models.ORM.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("AddDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OrderNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orders");
-                });
-
             modelBuilder.Entity("TechcareerWebApiTutorial.Models.ORM.WebUser", b =>
                 {
                     b.Property<int>("Id")
@@ -163,12 +125,15 @@ namespace TechcareerWebApiTutorial.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Adress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdateDate")
@@ -177,21 +142,6 @@ namespace TechcareerWebApiTutorial.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WebUsers");
-                });
-
-            modelBuilder.Entity("OrderWebUser", b =>
-                {
-                    b.HasOne("TechcareerWebApiTutorial.Models.ORM.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TechcareerWebApiTutorial.Models.ORM.WebUser", null)
-                        .WithMany()
-                        .HasForeignKey("WebUsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechcareerWebApiTutorial.Models.ORM;
 
@@ -11,9 +12,10 @@ using TechcareerWebApiTutorial.Models.ORM;
 namespace TechcareerWebApiTutorial.Migrations
 {
     [DbContext(typeof(TechCareerDbContext))]
-    partial class TechCareerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231229183148_webUserTableUpdate")]
+    partial class webUserTableUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,7 +150,7 @@ namespace TechcareerWebApiTutorial.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("TechcareerWebApiTutorial.Models.ORM.WebUser", b =>

@@ -2,7 +2,7 @@
 
 namespace TechcareerWebApiTutorial.Models.ORM
 {
-    public class TechCareerDbContext:DbContext
+    public class TechCareerDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -13,6 +13,7 @@ namespace TechcareerWebApiTutorial.Models.ORM
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Employee> Employees { get; set; }
-
+        public DbSet<WebUser> WebUsers { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
