@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TechcareerWebApiTutorial.Models.ORM;
 
@@ -6,6 +7,7 @@ namespace TechcareerWebApiTutorial.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EmployeeController : ControllerBase
     {
         private readonly TechCareerDbContext _context;
@@ -27,7 +29,7 @@ namespace TechcareerWebApiTutorial.Controllers
         {
 
             //firstordefault metodu icerisine yazdığımız sorguya göre arama yapar
-            var employee = _context.Employees.FirstOrDefault(e=> e.Id == id);
+            var employee = _context.Employees.FirstOrDefault(e => e.Id == id);
 
             //blog yoksa 404 döndür
             if (employee == null)
@@ -79,7 +81,7 @@ namespace TechcareerWebApiTutorial.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var employee = _context.Employees.FirstOrDefault(e=> e.Id == id);
+            var employee = _context.Employees.FirstOrDefault(e => e.Id == id);
 
             if (employee == null)
             {
