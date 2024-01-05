@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechcareerWebApiTutorial.Models.ORM;
 
@@ -11,9 +12,10 @@ using TechcareerWebApiTutorial.Models.ORM;
 namespace TechcareerWebApiTutorial.Migrations
 {
     [DbContext(typeof(TechCareerDbContext))]
-    partial class TechCareerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240105195541_ReservationTableAddClientColumn")]
+    partial class ReservationTableAddClientColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,11 +94,11 @@ namespace TechcareerWebApiTutorial.Migrations
 
             modelBuilder.Entity("TechcareerWebApiTutorial.Models.ORM.Client", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("AddDate")
                         .HasColumnType("datetime2");
@@ -128,11 +130,11 @@ namespace TechcareerWebApiTutorial.Migrations
 
             modelBuilder.Entity("TechcareerWebApiTutorial.Models.ORM.Company", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("AddDate")
                         .HasColumnType("datetime2");
@@ -211,16 +213,16 @@ namespace TechcareerWebApiTutorial.Migrations
 
             modelBuilder.Entity("TechcareerWebApiTutorial.Models.ORM.Reservation", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("AddDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CompanyId")
@@ -229,7 +231,7 @@ namespace TechcareerWebApiTutorial.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("RoomId")
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
@@ -248,11 +250,11 @@ namespace TechcareerWebApiTutorial.Migrations
 
             modelBuilder.Entity("TechcareerWebApiTutorial.Models.ORM.Room", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("AddDate")
                         .HasColumnType("datetime2");
@@ -350,7 +352,9 @@ namespace TechcareerWebApiTutorial.Migrations
                 {
                     b.HasOne("TechcareerWebApiTutorial.Models.ORM.Client", "Client")
                         .WithMany()
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TechcareerWebApiTutorial.Models.ORM.Company", null)
                         .WithMany("Reservations")
@@ -358,7 +362,9 @@ namespace TechcareerWebApiTutorial.Migrations
 
                     b.HasOne("TechcareerWebApiTutorial.Models.ORM.Room", "Room")
                         .WithMany("Reservations")
-                        .HasForeignKey("RoomId");
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Client");
 

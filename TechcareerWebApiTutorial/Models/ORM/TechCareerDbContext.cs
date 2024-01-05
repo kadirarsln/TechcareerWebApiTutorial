@@ -16,5 +16,10 @@ namespace TechcareerWebApiTutorial.Models.ORM
         public DbSet<WebUser> WebUsers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<UsersForToken> UsersForTokens { get; set; }
+
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Room> Rooms { get; set; }
     }
 }
